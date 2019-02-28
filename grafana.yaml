@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: grafana-prometheus
+  name: grafana
   namespace: kube-system
   labels:
     app: grafana
@@ -83,7 +83,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: grafana-prometheus
+  name: grafana
   namespace: kube-system
   labels:
     app: grafana
