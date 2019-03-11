@@ -1,0 +1,31 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: influxdb
+  namespace: kube-system
+  labels:
+    k8s-app: influxdb
+spec:
+  template:
+    metadata:
+      labels:
+        k8s-app: influxdb
+    spec:
+      terminationGracePeriodSeconds: 30
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: influxdb
+        image: docker.io/influxdb:1.6.4
+        volumeMounts:
+        - mountPath: /var/lib/influxdb
+          name: influxdb-storage
+        - mountPath: /tmp/backup
+          name: influx-backup
+      volumes:
+      - name: influxdb-storage
+        hostPath:
+          path: /home/ubuntu/logs
+      - name: influx-backup
+        hostPath:
+          path: /home/ubuntu/backup
